@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Tech</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FAFAFA', surface: '#FFFFFF', card: '#FFFFFF', border: '#E5E5E5',
+                        muted: '#525252', text: '#171717', accent: '#B45309',
+                        'accent-light': '#D97706', 'accent-bg': '#FFF7ED',
+                    },
+                    fontFamily: { display: ['Bebas Neue', 'sans-serif'], body: ['DM Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 bg-surface/0 backdrop-blur-0 border-b border-transparent transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3" aria-label="Razor & Data Início">
+                    <div class="w-10 h-10 rounded bg-accent flex items-center justify-center text-white">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <span class="font-display text-2xl tracking-wider text-text">RAZOR & DATA</span>
+                </a>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#services" class="nav-link text-muted hover:text-text transition-colors text-sm font-medium">Serviços</a>
+                    <a href="#gallery" class="nav-link text-muted hover:text-text transition-colors text-sm font-medium">Galeria</a>
+                    <a href="#team" class="nav-link text-muted hover:text-text transition-colors text-sm font-medium">Equipe</a>
+                    <a href="#contact" class="nav-link text-muted hover:text-text transition-colors text-sm font-medium">Contato</a>
+                    
+                    <!-- Botão Sair (Redireciona para Login) -->
+                    <a href="index.html" class="btn-outline text-sm" style="padding: 8px 16px;">Sair</a>
+                </div>
+                
+                <!-- CTA Mobile -->
+                <div class="flex items-center gap-4">
+                    <button onclick="openBookingModal()" class="btn-primary hidden sm:block text-sm">Agendar</button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-text" aria-label="Abrir menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-border bg-surface">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#services" class="block text-lg text-muted hover:text-text transition-colors">Serviços</a>
+                <a href="#gallery" class="block text-lg text-muted hover:text-text transition-colors">Galeria</a>
+                <a href="#team" class="block text-lg text-muted hover:text-text transition-colors">Equipe</a>
+                <a href="#contact" class="block text-lg text-muted hover:text-text transition-colors">Contato</a>
+                <button onclick="openBookingModal()" class="btn-primary w-full mt-4 text-sm">Agendar Agora</button>
+                <a href="index.html" class="block text-center text-muted mt-4">Sair da Conta</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 bg-surface">
+        <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-accent-bg to-transparent opacity-60 rounded-bl-full pointer-events-none" aria-hidden="true"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="hero-animate hero-animate-delay-1">
+                        <span class="inline-block px-4 py-2 bg-accent-bg text-accent text-sm font-medium rounded-full mb-6">Experiência Premium</span>
+                    </div>
+                    
+                    <h1 class="font-display text-5xl sm:text-6xl lg:text-8xl leading-none mb-6 text-text hero-animate hero-animate-delay-1">
+                        PRECISÃO<br><span class="text-accent">ENCONTRA</span><br>ESTILO
+                    </h1>
+                    
+                    <p class="text-lg text-muted max-w-lg mb-8 hero-animate hero-animate-delay-2">
+                        Onde o artesanato tradicional encontra a análise moderna. Experimente cuidados personalizados para o seu estilo único.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 hero-animate hero-animate-delay-3">
+                        <button onclick="openBookingModal()" class="btn-primary">Agendar Horário</button>
+                        <a href="#services" class="btn-outline">Ver Serviços</a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-8 mt-16 hero-animate hero-animate-delay-3">
+                        <div><div class="stat-number" data-target="2847">0</div><p class="text-muted text-sm mt-1">Clientes Felizes</p></div>
+                        <div><div class="stat-number" data-target="15">0</div><p class="text-muted text-sm mt-1">Anos de Experiência</p></div>
+                        <div><div class="stat-number" data-target="98">0</div><p class="text-muted text-sm mt-1">% Satisfação</p></div>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="relative hero-animate hero-animate-delay-2">
+                    <div class="aspect-[4/5] rounded-2xl overflow-hidden border border-border shadow-2xl shadow-black/5">
+                        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=80" alt="Barbeiro profissional" class="w-full h-full object-cover" loading="eager">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-surface border border-border rounded-xl p-4 shadow-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-accent-bg flex items-center justify-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-text">Próximo Disponível</p>
+                                <p class="text-sm text-muted">Hoje às 15:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-medium tracking-wider text-sm">NOSSOS SERVIÇOS</span>
+                <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl mt-4 text-text">CRIADOS PARA<br><span class="text-accent">EXCELÊNCIA</span></h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children" id="servicesGrid"></div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-surface relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-medium tracking-wider text-sm">PORTFÓLIO</span>
+                <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl mt-4 text-text">NOSSO<br><span class="text-accent">TRABALHO</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger-children" id="galleryGrid"></div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team" class="py-24 bg-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-medium tracking-wider text-sm">NOSSA EQUIPE</span>
+                <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl mt-4 text-text">MESTRES<br><span class="text-accent">ARTESÃOS</span></h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children" id="teamGrid"></div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <span class="text-accent font-medium tracking-wider text-sm">CONTATO</span>
+                    <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl mt-4 mb-8 text-text">VISITE NOSSA<br><span class="text-accent">LOJA</span></h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 bg-bg p-4 rounded-xl border border-border">
+                            <div class="w-12 h-12 rounded-lg bg-accent-bg flex items-center justify-center flex-shrink-0 text-accent">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div><h3 class="font-semibold text-lg text-text">Localização</h3><p class="text-muted">Rua Augusta, 1234 - Centro<br>São Paulo, SP</p></div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-bg p-4 rounded-xl border border-border">
+                            <div class="w-12 h-12 rounded-lg bg-accent-bg flex items-center justify-center flex-shrink-0 text-accent">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div><h3 class="font-semibold text-lg text-text">Horário</h3><p class="text-muted">Seg - Sex: 9:00 - 20:00<br>Sáb: 9:00 - 18:00 | Dom: Fechado</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal aspect-square lg:aspect-auto lg:h-[400px] rounded-xl overflow-hidden border border-border shadow-lg">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1076937814795!2d-46.65390492374057!3d-23.561414061470933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sRua%20Augusta%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1sen!2sbr!4v1699900000000!5m2!1sen!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- NOVO FOOTER DINÂMICO -->
+    <footer class="footer-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Grid Principal: 4 Colunas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Coluna 1: Marca -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-accent flex items-center justify-center text-white">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        </div>
+                        <span class="font-display text-2xl tracking-wider text-white">TEACH BARBER</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6 text-gray-400">
+                        Aprecie a arte do corte tradicional com a precisão da tecnologia. Uma experiência única de grooming.
+                    </p>
+                    
+                    <!-- Redes Sociais -->
+                    <div class="flex gap-3">
+                        <a href="#" class="footer-social-icon text-white" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="2 2 21 21" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="#" class="footer-social-icon text-white" aria-label="WhatsApp">
+                            <svg width="20" height="20" viewBox="2 2 21 21" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Links Rápidos -->
+                <div>
+                    <h3 class="footer-title">Links Rápidos</h3>
+                    <nav class="flex flex-col">
+                        <a href="#services" class="text-gray-400 hover:text-accent">Serviços</a>
+                        <a href="#gallery" class="text-gray-400 hover:text-accent">Galeria</a>
+                        <a href="#team" class="text-gray-400 hover:text-accent">Equipe</a>
+                        <a href="#contact" class="text-gray-400 hover:text-accent">Contato</a>
+                    </nav>
+                </div>
+
+                <!-- Coluna 3: Contato -->
+                <div>
+                    <h3 class="footer-title">Contato</h3>
+                    <div class="space-y-4 text-gray-400 text-sm">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 mt-1 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Rua Augusta, 1234<br>Centro, São Paulo - SP</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>+55 (11) 99999-9999</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <span>contato@teachbarber.com.br</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna 4: Horários e Status -->
+                <div>
+                    <h3 class="footer-title">Horário de Funcionamento</h3>
+                    
+                    <!-- Card de Status -->
+                    <div class="bg-white/5 rounded-lg p-4 mb-4 border border-white/10">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-white">Status Atual:</span>
+                            <div class="flex items-center">
+                                <span id="status-indicator" class="status-indicator"></span>
+                                <span id="status-text" class="text-sm font-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Terça - Sábado</span>
+                            <span class="text-white font-medium">09:00 - 20:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Domingo</span>
+                            <span class="text-white font-medium">09:00 - 18:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Segunda</span>
+                            <span class="text-red-400 font-medium">Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-xs">2024 Teach Barber. Todos os direitos reservados.</p>
+                <p class="text-gray-500 text-xs">Desenvolvido com precisão em São Paulo</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Floating Book Now Button -->
+    <div class="floating-btn">
+        <button onclick="openBookingModal()" class="btn-primary flex items-center gap-2 shadow-xl" aria-label="Agendar agora">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="hidden sm:inline">Agendar</span>
+        </button>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal-backdrop" onclick="closeBookingModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-display text-2xl text-text">AGENDAR VISITA</h3>
+                    <button onclick="closeBookingModal()" class="p-2 hover:bg-bg rounded-lg transition-colors" aria-label="Fechar modal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-text"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                
+                <div class="step-indicator mb-8 flex items-center">
+                    <div class="step-dot active" data-step="1">1</div>
+                    <div class="step-line flex-1 h-0.5 bg-border mx-2"></div>
+                    <div class="step-dot" data-step="2">2</div>
+                    <div class="step-line flex-1 h-0.5 bg-border mx-2"></div>
+                    <div class="step-dot" data-step="3">3</div>
+                    <div class="step-line flex-1 h-0.5 bg-border mx-2"></div>
+                    <div class="step-dot" data-step="4">4</div>
+                </div>
+                
+                <div id="bookingSteps">
+                    <div class="booking-step active" data-step="1"><h4 class="font-semibold mb-4 text-text">Selecione um Serviço</h4><div class="space-y-3" id="modalServices"></div></div>
+                    <div class="booking-step hidden" data-step="2"><h4 class="font-semibold mb-4 text-text">Escolha seu Barbeiro</h4><div class="grid grid-cols-2 gap-3" id="modalBarbers"></div></div>
+                    <div class="booking-step hidden" data-step="3">
+                        <h4 class="font-semibold mb-4 text-text">Escolha Data e Hora</h4>
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <button onclick="prevMonth()" class="p-2 hover:bg-bg rounded-lg" aria-label="Mês anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+                                <span id="calendarMonth" class="font-semibold text-text"></span>
+                                <button onclick="nextMonth()" class="p-2 hover:bg-bg rounded-lg" aria-label="Próximo mês"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-sm text-muted mb-2"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+                            <div id="calendarDays" class="grid grid-cols-7 gap-1"></div>
+                        </div>
+                        <div><h5 class="text-sm text-muted mb-3">Horários Disponíveis</h5><div id="timeSlots" class="grid grid-cols-3 gap-2"></div></div>
+                    </div>
+                    <div class="booking-step hidden" data-step="4">
+                        <h4 class="font-semibold mb-4 text-text">Confirme seu Agendamento</h4>
+                        <div class="bg-bg rounded-lg p-4 mb-6 border border-border"><div id="bookingSummary" class="space-y-3"></div></div>
+                        <div class="space-y-4">
+                            <div><label for="clientName" class="block text-sm text-muted mb-2">Seu Nome</label><input type="text" id="clientName" class="w-full rounded-lg px-4 py-3" placeholder="Digite seu nome completo" required></div>
+                            <div><label for="clientPhone" class="block text-sm text-muted mb-2">Telefone</label><input type="tel" id="clientPhone" class="w-full rounded-lg px-4 py-3" placeholder="+55 (11) 99999-9999" required></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3 mt-8">
+                    <button id="prevBtn" onclick="prevStep()" class="btn-outline flex-1 hidden">Voltar</button>
+                    <button id="nextBtn" onclick="nextStep()" class="btn-primary flex-1">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="confirmationToast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-surface border border-border rounded-lg px-6 py-4 shadow-2xl z-[300] opacity-0 invisible transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-accent-bg flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><p class="font-semibold text-text">Agendamento Confirmado!</p><p class="text-sm text-muted">Verifique seu email para detalhes</p></div>
+        </div>
+    </div>
+
+    <!-- VLIBRAS -->
+    <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- JS Externo -->
+    <script src="js/main.js"></script>
+</body>
+</html>
