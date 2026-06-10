@@ -182,8 +182,8 @@
 .footer-social-icon {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%; /* Deixa redondo */
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,7 +192,13 @@
 }
 
 .footer-social-icon:hover {
-    background-color: var(--accent);
+    background-color: var(--accent); /* Muda para laranja ao passar o mouse */
     border-color: var(--accent);
-    transform: translateY(-3px);
+    transform: translateY(-3px); /* Levanta um pouco */
+}
+
+.footer-social-icon svg {
+    width: 30px; 
+    height: 30px;
+    align-items: center;
 }

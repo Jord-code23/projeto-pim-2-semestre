@@ -202,32 +202,46 @@
         </div>
     </section>
 
-     <!-- NOVO FOOTER DINÂMICO -->
+     <!-- FOOTER DINÂMICO -->
     <footer class="footer-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Grid Principal: 4 Colunas -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 
-                <!-- Coluna 1: Marca -->
+                <!-- Coluna 1: Marca-->
                 <div>
                     <div class="flex items-center gap-3 mb-6">
+                        <!-- Ícone da Logo (Ferramenta) -->
                         <div class="w-10 h-10 rounded bg-accent flex items-center justify-center text-white">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
                         </div>
+                        <!-- Nome da Marca Corrigido -->
                         <span class="font-display text-2xl tracking-wider text-white">TECH BARBER</span>
                     </div>
+                    
+                    <!-- Descrição -->
                     <p class="text-sm leading-relaxed mb-6 text-gray-400">
                         Aprecie a arte do corte tradicional com a precisão da tecnologia. Uma experiência única de grooming.
                     </p>
                     
-                    <!-- Redes Sociais -->
+                    <!-- Ícones Sociais (Instagram e WhatsApp) -->
                     <div class="flex gap-3">
+                        <!-- Instagram -->
                         <a href="#" class="footer-social-icon text-white" aria-label="Instagram">
-                            <svg width="20" height="20" viewBox="2 2 21 21" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
                         </a>
+                        <!-- WhatsApp -->
                         <a href="#" class="footer-social-icon text-white" aria-label="WhatsApp">
-                            <svg width="20" height="20" viewBox="2 2 21 21" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -425,12 +439,26 @@
             <div><p class="font-semibold text-text">Agendamento Confirmado!</p><p class="text-sm text-muted">Verifique seu email para detalhes</p></div>
         </div>
     </div>
-
-    <!-- VLIBRAS -->
-    <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
-
+     <!-- VLIBRAS (Adicione async para não travar o carregamento da página) -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" async></script>
+    <script>
+        // Espera o script carregar totalmente antes de iniciar o widget
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se a função existe (caso o script demore a baixar)
+            const initVlibras = setInterval(() => {
+                if (window.VLibras) {
+                    new window.VLibras.Widget('https://vlibras.gov.br/app');
+                    clearInterval(initVlibras);
+                }
+            }, 100); // Tenta a cada 100ms
+        });
+    </script>
     <!-- JS Externo -->
     <script src="js/main.js"></script>
 </body>
