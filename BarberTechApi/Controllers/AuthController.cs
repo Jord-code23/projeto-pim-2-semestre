@@ -25,10 +25,10 @@ namespace BarberTechApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto request)
+        public async Task<IActionResult> Register([FromBody] RegisterDto request)
         {
             if (await _context.Clientes.AnyAsync(c => c.Email == request.Email))
-                return BadRequest("Email já cadastrado.");
+                return BadRequest(new { message = "Email já cadastrado." });
 
             var cliente = new Cliente
             {
