@@ -1,0 +1,147 @@
+CREATE DATABASE IF NOT EXISTS `barbeariatechh`;
+USE `barbeariatechh`;
+
+-- Estrutura da tabela `clientes`
+
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE `clientes` (
+  `id_cliente` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `telefone` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(100) DEFAULT NULL,
+  `data_nascimento` DATE DEFAULT NULL,
+  `data_cadastro` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_cliente`),
+  UNIQUE KEY `telefone` (`telefone`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- Dados inseridos na tabela `clientes`
+
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'Victhor','11954867379','victhor313@email.com','2003-01-02','2026-05-07 22:03:36'),(2,'Carlos Souza','11888888888','carlos@email.com','1998-11-20','2026-05-07 22:03:36');
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- Estrutura da tabela `funcionarios` (Barbeiros e Equipe)
+
+DROP TABLE IF EXISTS `funcionarios`;
+CREATE TABLE `funcionarios` (
+  `id_funcionario` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `cpf` CHAR(11) NOT NULL UNIQUE,
+  `rg` VARCHAR(20) DEFAULT NULL,
+  `especialidade` VARCHAR(100) DEFAULT NULL,
+  `telefone` VARCHAR(20) DEFAULT NULL,
+  `email` VARCHAR(120) UNIQUE,
+  `cargo` VARCHAR(30) NOT NULL CHECK (cargo IN ('BARBEIRO', 'RECEPCIONISTA', 'GERENTE', 'AUXILIAR')),
+  `comissao_percentual` DECIMAL(5,2) NOT NULL DEFAULT 0.00 CHECK (comissao_percentual BETWEEN 0 AND 100),
+  `salario_base` DECIMAL(10,2) NOT NULL DEFAULT 0.00 CHECK (salario_base >= 0),
+  `data_admissao` DATE NOT NULL,
+  `data_demissao` DATE DEFAULT NULL,
+  `status` ENUM('ATIVO','INATIVO') DEFAULT 'ATIVO',
+  `criado_em` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `atualizado_em` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_funcionario`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dados inseridos na tabela `funcionarios`
+
+LOCK TABLES `funcionarios` WRITE;
+/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES 
+(1, 'Marcos Barber', '12345678901', '123456789', 'Degradê e Navalhado', '11777777777', 'marcos@barbearia.com', 'BARBEIRO', 40.00, 2000.00, '2025-01-10', NULL, 'ATIVO', '2026-05-07 22:03:36', NULL),
+(2, 'Lucas Fade', '98765432109', '987654321', 'Corte Social', '11666666666', 'lucas@barbearia.com', 'BARBEIRO', 40.00, 2000.00, '2025-03-15', NULL, 'ATIVO', '2026-05-07 22:03:36', NULL);
+/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- Estrutura da tabela `servicos`
+
+DROP TABLE IF EXISTS `servicos`;
+CREATE TABLE `servicos` (
+  `id_servico` INT NOT NULL AUTO_INCREMENT,
+  `nome_servico` VARCHAR(100) NOT NULL,
+  `descricao` TEXT,
+  `preco` DECIMAL(10,2) NOT NULL CHECK (preco >= 0),
+  `duracao_minutos` INT NOT NULL CHECK (duracao_minutos > 0),
+  `ativo` BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`id_servico`),
+  UNIQUE KEY `nome_servico` (`nome_servico`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- Dados inseridos na tabela `servicos`
+
+LOCK TABLES `servicos` WRITE;
+/*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
+INSERT INTO `servicos` VALUES 
+(1, 'Corte Masculino', 'Corte tradicional masculino', 35.00, 40, TRUE),
+(2, 'Barba', 'Modelagem completa da barba', 25.00, 30, TRUE),
+(3, 'Corte + Barba', 'Pacote completo', 55.00, 60, TRUE);
+/*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- Estrutura da tabela `agendamentos`
+
+DROP TABLE IF EXISTS `agendamentos`;
+CREATE TABLE `agendamentos` (
+  `id_agendamento` INT NOT NULL AUTO_INCREMENT,
+  `id_cliente` INT NOT NULL,
+  `id_funcionario` INT NOT NULL,
+  `id_servico` INT NOT NULL,
+  `data_agendamento` DATE NOT NULL,
+  `hora_agendamento` TIME NOT NULL,
+  `status_agendamento` ENUM('AGENDADO','CONFIRMADO','EM_ATENDIMENTO','CONCLUIDO','CANCELADO','NAO_COMPARECEU') DEFAULT 'AGENDADO',
+  `valor_cobrado` DECIMAL(10,2) NOT NULL CHECK (valor_cobrado >= 0),
+  `observacoes` TEXT,
+  `data_criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `atualizado_em` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_agendamento`),
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_funcionario` (`id_funcionario`),
+  KEY `id_servico` (`id_servico`),
+  CONSTRAINT `agendamentos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+  CONSTRAINT `agendamentos_ibfk_2` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id_funcionario`),
+  CONSTRAINT `agendamentos_ibfk_3` FOREIGN KEY (`id_servico`) REFERENCES `servicos` (`id_servico`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- Dados inseridos na tabela `agendamentos`
+
+LOCK TABLES `agendamentos` WRITE;
+/*!40000 ALTER TABLE `agendamentos` DISABLE KEYS */;
+INSERT INTO `agendamentos` VALUES 
+(1, 1, 1, 3, '2026-05-10', '14:00:00', 'AGENDADO', 55.00, NULL, '2026-05-07 22:03:36', NULL),
+(2, 2, 2, 1, '2026-05-11', '16:30:00', 'CONFIRMADO', 35.00, NULL, '2026-05-07 22:03:36', NULL);
+/*!40000 ALTER TABLE `agendamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- Estrutura da tabela `pagamentos`
+
+DROP TABLE IF EXISTS `pagamentos`;
+CREATE TABLE `pagamentos` (
+  `id_pagamento` INT NOT NULL AUTO_INCREMENT,
+  `id_agendamento` INT NOT NULL,
+  `valor` DECIMAL(10,2) NOT NULL,
+  `forma_pagamento` ENUM('DINHEIRO','PIX','CARTAO_CREDITO','CARTAO_DEBITO') NOT NULL,
+  `status_pagamento` ENUM('PENDENTE','PAGO') DEFAULT 'PENDENTE',
+  `data_pagamento` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_pagamento`),
+  KEY `id_agendamento` (`id_agendamento`),
+  CONSTRAINT `pagamentos_ibfk_1` FOREIGN KEY (`id_agendamento`) REFERENCES `agendamentos` (`id_agendamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- Dados inseridos na tabela `pagamentos`
+
+LOCK TABLES `pagamentos` WRITE;
+/*!40000 ALTER TABLE `pagamentos` DISABLE KEYS */;
+INSERT INTO `pagamentos` VALUES 
+(1, 1, 55.00, 'PIX', 'PAGO', '2026-05-07 22:03:36'),
+(2, 2, 35.00, 'CARTAO_CREDITO', 'PENDENTE', '2026-05-07 22:03:36');
+/*!40000 ALTER TABLE `pagamentos` ENABLE KEYS */;
+UNLOCK TABLES;
